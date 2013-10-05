@@ -1,0 +1,99 @@
+@import 'bourbon/bourbon';
+@import 'neat/neat';
+@import 'reset';
+@import 'vendor/bootstrap/bootstrap';
+
+// ---------------------------------------------------------
+// Mixins & Variables
+// ---------------------------------------------------------
+
+// COLOURS
+$dark-grey: #1C1C1C;
+
+
+// TRANSITIONS
+
+@mixin fade {
+  @include transition (all 0.15s ease-in-out);
+}
+
+@mixin fast-fade {
+  @include transition (all 0.05s ease-in-out);
+}
+
+
+// ---------------------------------------------------------
+// Base
+// ---------------------------------------------------------
+
+body {
+  font-family: Helvetica;
+  color: #fff;
+  background: #E00000;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: $dark-grey;
+}
+
+
+// ---------------------------------------------------------
+// Text
+// ---------------------------------------------------------
+
+// Use the class text on any container specifically for textual content
+
+.text {
+  h1 {
+    font-size: 3em;
+  }
+
+  h2 {
+    font-size: 2.5em;
+  }
+
+  h3 {
+    font-size: 2em;
+  }
+
+  h4 {
+    font-size: 1.5em;
+  }
+
+  ul {
+
+  }
+
+  ol {
+
+  }
+
+  blockquote {
+
+  }
+}
+
+/* Main Site
+================================ */
+
+.site-wrap {
+  @include outer-container;
+  margin-top: 4em;
+}
+
+.timer-form {
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: 4px solid #fff;
+    &:focus {
+      outline: none;
+      border-bottom: 4px solid #000;
+    }
+  }
+}
+
