@@ -5,13 +5,13 @@ $(document).ready(function() {
 
   // Strips spaces and converts to underscores
   function stripSpaces (city) {
-    var strippedLoc = city.replace(" ", "_");
+    var strippedLoc = city.replace(/ /g, "_");
     return strippedLoc
   }
 
-  // Set correctly formatted region for TZ
+  // TODO: Set correctly formatted region for TZ
   function setRegion (location) {
-    return "America/" + location;
+    return location;
   }
 
   // Get date for a given location
@@ -26,6 +26,16 @@ $(document).ready(function() {
     );
   }
 
+  function formatDateTime (dt) {
+    var year = dt.getFullYear();
+    var month = ("0" + (dt.getMonth() + 1)).slice(-2);
+    var date = ("0" + dt.getDate()).slice(-2);
+    var hours = ("0" + dt.getHours()).slice(-2);
+    var minutes = ("0" + dt.getMinutes()).slice(-2);    
+    
+    return year + "/" + month + "/" + date + " " + hours + ":" + minutes;
+  }
+  
   function onSubmit (submit){
     // Prevents page from doing default submit action
     submit.preventDefault();
@@ -33,28 +43,40 @@ $(document).ready(function() {
     // Scrape forms for inputs
     var departureLoc = $("#departureLoc").val();
     var arrivalLoc = $("#arrivalLoc").val();
-    var arrivalTime = $("#arrivalTime").val();
+    var arrivalDateTime = $("#arrivalDateTime").val();
 
     // Reset values for departure and arrival to correctly formatted
     // text for the timezoneJS.data
     departureLoc = setRegion(stripSpaces(departureLoc));
     arrivalLoc = setRegion(stripSpaces(arrivalLoc));
 
-    // Set current date
-    var currentDate = new Date();
+    // TODO: have this user configurable?
+    var breakfastHour = 9;
 
-    // Set departure and arrival date based on defined locations
-    var departureDate = getDateForLocation(currentDate, departureLoc);
-    var arrivalDate = getDateForLocation(currentDate, arrivalLoc);
-
-    // Set timezones
-    var departureTZ = departureDate.getTimezoneOffset();
-    var arrivalTZ = arrivalDate.getTimezoneOffset();
-
-    // Calculate timezone difference
-    var tzOffset = arrivalTZ - departureTZ;
-
-    var cutOff = 
+    var dt = new timezoneJS.Date(arrivalDateTime, arrivalLoc);
+    var hours = dt.getHours();
+    var minutes = dt.getMinutes();
+    if(hours < 17 || (hours == 17 && minutes == 0)) {
+      alert("Don't eat after 17:00 in " + arrivalLoc);
+    }
+    else {
+      // Breakfast datetime
+      dt.setDate(dt.getDate() + 1);
+      dt.setHours(breakfastHour);
+      dt.setMinutes(0);
+      dt.setSeconds(0);
+      
+      // Subtract 16 hours to get fasting start time
+      if(breakfastHour < 16) {
+        // Need to do this ourselves as timezoneJS.Date
+        // doesn't handle it automatically like Date does
+      	dt.setDate(dt.getDate() - 1);
+      }
+      dt.setHours(dt.getHours() - 16);
+      dt.setTimezone(departureLoc);
+      
+      alert("Don't eat after " + formatDateTime(dt) + " in " + departureLoc);
+    }
 
     // Return false, beacuse you have to :)
     return false
