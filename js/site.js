@@ -53,8 +53,7 @@ $(document).ready(function() {
 
     // Calculate timezone difference
     var tzOffset = arrivalTZ - departureTZ;
-
-    var cutOff = 
+    console.log(tzOffset);
 
     // Return false, beacuse you have to :)
     return false

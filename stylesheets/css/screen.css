@@ -5011,14 +5011,30 @@ td.visible-print {
   th.hidden-print,
   td.hidden-print {
     display: none !important; } }
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: normal; }
+
+:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: normal; }
+
+::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: normal; }
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: normal; }
+
 body {
   font-family: Helvetica;
   color: #fff;
-  background: #E00000; }
+  background: url("../../images/hello.jpg") fixed; }
 
 a, a:link, a:visited {
   text-decoration: none;
-  color: #1c1c1c; }
+  color: #6281d8; }
 
 .text h1 {
   font-size: 3em; }
@@ -5035,7 +5051,11 @@ a, a:link, a:visited {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 4em; }
+  top: 20%;
+  width: 24em;
+  position: absolute;
+  left: 50%;
+  margin-left: -12em; }
   .site-wrap:before, .site-wrap:after {
     content: " ";
     /* 1 */
@@ -5046,12 +5066,33 @@ a, a:link, a:visited {
 
 .timer-form {
   font-size: 2em;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: 0.02em; }
+  .timer-form label {
+    font-weight: normal;
+    width: 100%; }
   .timer-form input {
     background: transparent;
     border: none;
-    border-bottom: 4px solid #fff; }
+    border-bottom: 4px solid rgba(42, 76, 170, 0.5);
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    width: 100%;
+    letter-spacing: 0.05em; }
     .timer-form input:focus {
       outline: none;
-      border-bottom: 4px solid #000; }
+      border-bottom: 4px solid rgba(42, 76, 170, 0.9); }
+
+.submit-button {
+  border: none;
+  display: block;
+  background: rgba(42, 76, 170, 0.4);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.05em;
+  padding: 0.5em 1em;
+  width: 100%; }
+  .submit-button:hover {
+    background: rgba(42, 76, 170, 0.6); }

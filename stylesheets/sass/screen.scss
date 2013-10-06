@@ -8,18 +8,20 @@
 // ---------------------------------------------------------
 
 // COLOURS
-$dark-grey: #1C1C1C;
+$primary: #6281D8;
 
-
-// TRANSITIONS
-
-@mixin fade {
-  @include transition (all 0.15s ease-in-out);
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
 }
 
-@mixin fast-fade {
-  @include transition (all 0.05s ease-in-out);
+@include placeholder {
+  color: rgba(#fff, 0.3);
+  font-weight: normal;
 }
+
 
 
 // ---------------------------------------------------------
@@ -29,12 +31,13 @@ $dark-grey: #1C1C1C;
 body {
   font-family: Helvetica;
   color: #fff;
-  background: #E00000;
+  background: url("../../images/hello.jpg") fixed;
+
 }
 
 a, a:link, a:visited {
   text-decoration: none;
-  color: $dark-grey;
+  color: $primary;
 }
 
 
@@ -79,21 +82,52 @@ a, a:link, a:visited {
 
 .site-wrap {
   @include outer-container;
-  margin-top: 4em;
+  top: 20%;
+  width: 24em;
+  position: absolute;
+  left: 50%;
+  margin-left: -12em;
 }
 
 .timer-form {
   font-size: 2em;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: 0.02em;
+
+  label {
+    font-weight: normal;
+    width: 100%;
+  }
+
   input {
     background: transparent;
     border: none;
-    border-bottom: 4px solid #fff;
+    border-bottom: 4px solid rgba(darken($primary, 20%), 0.5);
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    width: 100%;
+    letter-spacing: 0.05em;
+
     &:focus {
       outline: none;
-      border-bottom: 4px solid #000;
+      border-bottom: 4px solid rgba(darken($primary, 20%), 0.9);
     }
+  }
+}
+
+.submit-button {
+  border: none;
+  display: block;
+  background: rgba(darken($primary, 20%), 0.4);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.05em;
+  padding: 0.5em 1em;
+  width: 100%;
+  &:hover {
+    background: rgba(darken($primary, 20%), 0.6);
   }
 }
 
