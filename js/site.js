@@ -26,14 +26,11 @@ $(document).ready(function() {
     );
   }
 
-  function formatDateTime (dt) {
-    var year = dt.getFullYear();
-    var month = ("0" + (dt.getMonth() + 1)).slice(-2);
-    var date = ("0" + dt.getDate()).slice(-2);
+  function formatTime (dt) {
     var hours = ("0" + dt.getHours()).slice(-2);
     var minutes = ("0" + dt.getMinutes()).slice(-2);    
     
-    return year + "/" + month + "/" + date + " " + hours + ":" + minutes;
+    return hours + ":" + minutes;
   }
   
   function onSubmit (submit){
@@ -43,32 +40,17 @@ $(document).ready(function() {
     // Scrape forms for inputs
     var departureLoc = $("#departureLoc").val();
     var arrivalLoc = $("#arrivalLoc").val();
-    var arrivalDateTime = $("#arrivalDateTime").val();
+    var arrivalTime = new Date().toDateString() + " " + $("#arrivalTime").val();
 
     // Reset values for departure and arrival to correctly formatted
     // text for the timezoneJS.data
     departureLoc = setRegion(stripSpaces(departureLoc));
     arrivalLoc = setRegion(stripSpaces(arrivalLoc));
 
-    // Set current date
-    var currentDate = new Date();
-
-    // Set departure and arrival date based on defined locations
-    var departureDate = getDateForLocation(currentDate, departureLoc);
-    var arrivalDate = getDateForLocation(currentDate, arrivalLoc);
-
-    // Set timezones
-    var departureTZ = departureDate.getTimezoneOffset();
-    var arrivalTZ = arrivalDate.getTimezoneOffset();
-
-    // Calculate timezone difference
-    var tzOffset = arrivalTZ - departureTZ;
-    console.log(tzOffset);
-
     // TODO: have this user configurable?
     var breakfastHour = 9;
 
-    var dt = new timezoneJS.Date(arrivalDateTime, arrivalLoc);
+    var dt = new timezoneJS.Date(arrivalTime, arrivalLoc);
     var hours = dt.getHours();
     var minutes = dt.getMinutes();
     if(hours < 17 || (hours == 17 && minutes == 0)) {
@@ -90,7 +72,7 @@ $(document).ready(function() {
       dt.setHours(dt.getHours() - 16);
       dt.setTimezone(departureLoc);
       
-      alert("Don't eat after " + formatDateTime(dt) + " in " + departureLoc);
+      alert("Don't eat after " + formatTime(dt) + " in " + departureLoc);
     }
 
     // Return false, beacuse you have to :)
